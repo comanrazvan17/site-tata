@@ -21,12 +21,14 @@ export async function POST(req: Request) {
     `;
 
     await resend.emails.send({
-      from: process.env.CONTACT_FROM!,      // ex: "Formular <noreply@atelier-mobila.ro>"
-      to: process.env.CONTACT_TO!,          // unde vrei să primești mesajele
+      from: process.env.CONTACT_FROM!,
+      to: process.env.CONTACT_TO!,
       subject: `Formular site - ${name}`,
       html,
-      replyTo: email                        // corect: camelCase
-    });
+      replyTo: email,              
+    } );                      
+    
+    
 
     return NextResponse.json({ ok: true });
   } catch (e) {
