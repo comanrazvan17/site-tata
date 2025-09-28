@@ -21,16 +21,16 @@ export async function POST(req: Request) {
     `;
 
     await resend.emails.send({
-      to: process.env.CONTACT_TO!,           // unde primești tu mesajele
-      from: process.env.CONTACT_FROM!,       // ex: "Formular <no-reply@atelier-mobila.ro>"
-      reply_to: email,                       // ca să poți da Reply direct clientului
+      from: process.env.CONTACT_FROM!,      // ex: "Formular <noreply@atelier-mobila.ro>"
+      to: process.env.CONTACT_TO!,          // unde vrei să primești mesajele
       subject: `Formular site - ${name}`,
-      html
+      html,
+      replyTo: email                        // corect: camelCase
     });
 
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.error(e);
+    console.error('Email error:', e);
     return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 });
   }
 }
