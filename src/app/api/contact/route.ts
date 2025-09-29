@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// validare simplă
+// validare simplă pentru email
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
 export async function POST(req: Request) {
@@ -23,23 +23,16 @@ export async function POST(req: Request) {
       <p><b>Mesaj:</b><br/>${(message || '').replace(/\n/g, '<br/>')}</p>
     `;
 
-    // payload de bază
-    const payload: any = {
-      from: process.env.CONTACT_FROM!,  // ex: "Formular <no-reply@atelier-mobila.ro>"
-      to: process.env.CONTACT_TO!,      // unde primești tu mesajele
+    await resend.emails.send({
+      from: process.env.CONTACT_FROM as string,   // ex: "Formular <no-reply@atelier-mobila.ro>"
+      to: process.env.CONTACT_TO as string,       // unde primești tu mesajele
       subject: `Formular site - ${name}`,
       html,
-    };
-
-    // adaugă reply_to doar dacă e adresă validă
-    if (isEmail(email)) {
-      payload.reply_to = email;         // v6: reply_to (nu replyTo)
-    }
-
-    await resend.emails.send(payload);
+      ...(isEmail(email) ? { reply_to: email as string } : {}), // adaugă doar dacă e valid
+    });
 
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
+  } catch (e) {
     console.error('Email error:', e);
     return NextResponse.json({ ok: false, error: 'Server error' }, { status: 500 });
   }
