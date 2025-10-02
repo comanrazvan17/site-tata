@@ -199,7 +199,7 @@ export default function AtelierMobilă() {
               Mobilier Premium
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-8">
-              Craftat cu pasiune pentru casa ta.
+            Design cu suflet, pentru casa ta.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <button
