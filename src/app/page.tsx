@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Phone,
   Mail,
@@ -23,12 +23,76 @@ type FormData = {
   message: string;
 };
 
+// 🔸 scoatem datele în afara componentului ca să nu se mai recreeze
+const PORTFOLIO = [
+  {
+    id: 1,
+    title: "Bucătărie Modernă",
+    desc: "Design minimalist cu finisaje premium",
+    image: "/bucatarie.png",
+  },
+  {
+    id: 2,
+    title: "Living Room",
+    desc: "Soluții elegante pentru living",
+    image: "/living.png",
+  },
+  {
+    id: 3,
+    title: "Dormitor Lux",
+    desc: "Confort și stil în dormitor",
+    image: "/dormitor.png",
+  },
+  {
+    id: 4,
+    title: "Dressing Walk-in",
+    desc: "Organizare perfectă și eleganță",
+    image: "/dressing.png",
+  },
+  {
+    id: 5,
+    title: "Home Office",
+    desc: "Spațiu de lucru productiv",
+    image: "/birou.png",
+  },
+  {
+    id: 6,
+    title: "Baie Relax",
+    desc: "Soluții practice și moderne",
+    image: "/baie.png",
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    name: "Maria Popescu",
+    text: "Profesionalism desăvârșit! Am fost impresionat de atenția la detalii și de calitatea excepțională a mobilierului. Recomand cu încredere!",
+    rating: 5,
+  },
+  {
+    name: "Alexandru Ionescu",
+    text: "Experiență fantastică din prima până în ultima clipă. Design-ul propus a depășit așteptările noastre, iar montajul a fost impecabil.",
+    rating: 5,
+  },
+  {
+    name: "Elena Dumitrescu",
+    text: "Calitate superioară și prețuri corecte. Au transformat complet bucătăria noastră. Suntem extrem de mulțumiți de rezultat!",
+    rating: 5,
+  },
+];
+
+const STATS = [
+  { number: "13+", label: "Ani", icon: Star, color: "text-yellow-300" },
+  { number: "700+", label: "Clienți", icon: Heart, color: "text-red-500" },
+  { number: "200+", label: "Proiecte", icon: Trophy, color: "text-amber-300" },
+];
+
+const NAV_ITEMS = ["Acasă", "Despre", "Portofoliu", "Testimoniale", "Contact"];
+
 export default function AtelierMobilă() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showThanks, setShowThanks] = useState(false);
-  const [hoveredPortfolio, setHoveredPortfolio] = useState<number | null>(null);
-
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -36,116 +100,64 @@ export default function AtelierMobilă() {
     message: "",
   });
 
+  // scroll listener pasiv + foarte simplu
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      if (window.scrollY > 50) setScrolled(true);
+      else setScrolled(false);
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // autohide pentru modal
   useEffect(() => {
     if (!showThanks) return;
     const t = setTimeout(() => setShowThanks(false), 2500);
     return () => clearTimeout(t);
   }, [showThanks]);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    },
+    []
+  );
 
-  const handleSubmit = async () => {
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const json = await res.json();
-      if (json.ok) {
-        setShowThanks(true);
-        setFormData({ name: "", email: "", phone: "", message: "" });
+  const handleSubmit = useCallback(
+    async (e?: React.FormEvent) => {
+      e?.preventDefault();
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        const json = await res.json();
+        if (json.ok) {
+          setShowThanks(true);
+          setFormData({ name: "", email: "", phone: "", message: "" });
+        }
+      } catch (err) {
+        // poți pune un toast aici
+        alert("Eroare la trimitere!");
       }
-    } catch (err) {
-      alert("Eroare la trimitere!");
-    }
-  };
+    },
+    [formData]
+  );
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+  const scrollToSection = useCallback((sectionId: string) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
       setIsMenuOpen(false);
     }
-  };
-
-  const portfolio = [
-    {
-      id: 1,
-      title: "Bucătărie Modernă",
-      desc: "Design minimalist cu finisaje premium",
-      image: "/bucatarie.png",
-    },
-    {
-      id: 2,
-      title: "Living Room",
-      desc: "Soluții elegante pentru living",
-      image: "/living.png",
-    },
-    {
-      id: 3,
-      title: "Dormitor Lux",
-      desc: "Confort și stil în dormitor",
-      image: "/dormitor.png",
-    },
-    {
-      id: 4,
-      title: "Dressing Walk-in",
-      desc: "Organizare perfectă și eleganță",
-      image: "/dressing.png",
-    },
-    {
-      id: 5,
-      title: "Home Office",
-      desc: "Spațiu de lucru productiv",
-      image: "birou.png",
-    },
-    {
-      id: 6,
-      title: "Baie Relax",
-      desc: "Soluții practice și moderne",
-      image: "baie.png",
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Maria Popescu",
-      text: "Profesionalism desăvârșit! Am fost impresionat de atenția la detalii și de calitatea excepțională a mobilierului. Recomand cu încredere!",
-      rating: 5,
-    },
-    {
-      name: "Alexandru Ionescu",
-      text: "Experiență fantastică din prima până în ultima clipă. Design-ul propus a depășit așteptările noastre, iar montajul a fost impecabil.",
-      rating: 5,
-    },
-    {
-      name: "Elena Dumitrescu",
-      text: "Calitate superioară și prețuri corecte. Au transformat complet bucătăria noastră. Suntem extrem de mulțumiți de rezultat!",
-      rating: 5,
-    },
-  ];
-
-  const stats = [
-    { number: "13+", label: "Ani", icon: Star, color: "text-yellow-300" },
-    { number: "700+", label: "Clienți", icon: Heart, color: "text-red-500" },
-    { number: "200+", label: "Proiecte", icon: Trophy, color: "text-amber-300" },
-  ];
+  }, []);
 
   return (
     <div className="relative w-full text-white min-h-screen">
-      {/* BACKGROUND FIX */}
+      {/* BACKGROUND */}
       <div className="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-br from-gray-900 via-gray-800 to-gray-950">
         <svg
           className="w-full h-full"
@@ -185,15 +197,6 @@ export default function AtelierMobilă() {
 
             <path d="M 50 500 Q 150 450 250 500 T 450 500" />
             <path d="M 950 600 Q 1050 550 1150 600" />
-
-            <polygon points="400,100 450,150 400,200 350,150" />
-            <polygon points="700,800 750,850 700,900 650,850" />
-
-            <rect x="20" y="20" width="100" height="2" />
-            <rect x="20" y="20" width="2" height="100" />
-
-            <rect x="1160" y="1100" width="100" height="2" />
-            <rect x="1160" y="1000" width="2" height="100" />
           </g>
         </svg>
       </div>
@@ -202,23 +205,26 @@ export default function AtelierMobilă() {
       <div className="relative z-20">
         {/* NAVBAR */}
         <nav
-          className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled
-            ? "bg-gray-900/80 backdrop-blur-xl py-3"
-            : "bg-transparent py-6"
-            }`}
+          className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+            scrolled
+              ? "bg-gray-900/80 backdrop-blur-xl py-3"
+              : "bg-transparent py-6"
+          }`}
         >
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex justify-between items-center">
               <button
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                onClick={() =>
+                  window.scrollTo({ top: 0, behavior: "smooth" })
+                }
               >
                 <div className="flex items-center gap-3 group">
                   <img
                     src="/logo.png"
                     alt="Logo Atelier Mobilă"
                     className="w-10 h-10 object-contain rounded-lg group-hover:scale-110 transition-transform"
+                    loading="eager"
                   />
-
                   <span className="text-xl font-bold text-white">
                     Atelier{" "}
                     <span className="bg-gradient-to-r from-amber-500 to-amber-700 bg-clip-text text-transparent">
@@ -229,22 +235,23 @@ export default function AtelierMobilă() {
               </button>
 
               <div className="hidden md:flex items-center gap-8">
-                {["Acasă", "Despre", "Portofoliu", "Testimoniale", "Contact"].map(
-                  (item) => (
-                    <button
-                      key={item}
-                      onClick={() => scrollToSection(item.toLowerCase())}
-                      className="text-gray-300 hover:text-amber-500 font-semibold transition-colors pb-1 border-b-2 border-b-transparent hover:border-b-amber-500"
-                    >
-                      {item}
-                    </button>
-                  )
-                )}
+                {NAV_ITEMS.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() =>
+                      scrollToSection(item.toLowerCase().normalize("NFD").replace(/\u0303|\u0327|\u0306/g, "").replace("ă", "a"))
+                    }
+                    className="text-gray-300 hover:text-amber-500 font-semibold transition-colors pb-1 border-b-2 border-b-transparent hover:border-b-amber-500"
+                  >
+                    {item}
+                  </button>
+                ))}
               </div>
 
               <button
                 onClick={() => setIsMenuOpen((v) => !v)}
                 className="md:hidden text-amber-400"
+                aria-label="Deschide meniul"
               >
                 {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
@@ -252,17 +259,17 @@ export default function AtelierMobilă() {
 
             {isMenuOpen && (
               <div className="md:hidden mt-4 py-4 border-t border-amber-600/30 space-y-3">
-                {["Acasă", "Despre", "Portofoliu", "Testimoniale", "Contact"].map(
-                  (item) => (
-                    <button
-                      key={item}
-                      onClick={() => scrollToSection(item.toLowerCase())}
-                      className="block w-full text-left py-2 text-gray-300 hover:text-amber-400 font-medium"
-                    >
-                      {item}
-                    </button>
-                  )
-                )}
+                {NAV_ITEMS.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() =>
+                      scrollToSection(item.toLowerCase().normalize("NFD").replace(/\u0303|\u0327|\u0306/g, "").replace("ă", "a"))
+                    }
+                    className="block w-full text-left py-2 text-gray-300 hover:text-amber-400 font-medium"
+                  >
+                    {item}
+                  </button>
+                ))}
               </div>
             )}
           </div>
@@ -270,7 +277,7 @@ export default function AtelierMobilă() {
 
         {/* HERO */}
         <section
-          id="acasă"
+          id="acasa"
           className="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden"
         >
           <div className="relative z-10 text-center max-w-4xl">
@@ -307,7 +314,7 @@ export default function AtelierMobilă() {
             </div>
 
             <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
-              {stats.map((stat, i) => {
+              {STATS.map((stat, i) => {
                 const Icon = stat.icon;
                 return (
                   <div
@@ -373,18 +380,15 @@ export default function AtelierMobilă() {
                 </div>
               </div>
 
-              <div className="h-96 rounded-2xl overflow-hidden  relative">
+              <div className="h-96 rounded-2xl overflow-hidden relative">
                 <img
                   src="/fundal.png"
                   alt="Showroom"
                   className="absolute inset-0 w-full h-full object-cover object-center"
+                  loading="lazy"
                 />
-                <div className="absolute inset-0" /> {/* overlay subtil */}
-                <div className="relative z-10 flex items-center justify-center h-full">
-
-                </div>
+                <div className="absolute inset-0 bg-black/10" />
               </div>
-
             </div>
           </div>
         </section>
@@ -408,29 +412,18 @@ export default function AtelierMobilă() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {portfolio.map((item) => (
+              {PORTFOLIO.map((item) => (
                 <div
                   key={item.id}
-                  onMouseEnter={() => setHoveredPortfolio(item.id)}
-                  onMouseLeave={() => setHoveredPortfolio(null)}
-                  className={`group relative overflow-hidden rounded-2xl cursor-pointer h-80 transition-all duration-500 ${hoveredPortfolio === item.id ? "scale-105" : "scale-100"
-                    }`}
+                  className="group relative overflow-hidden rounded-2xl cursor-pointer h-80 transition-all duration-500"
                 >
-                  {item.image ? (
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                    />
-                  ) : (
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${"color" in item ? item.color : "from-amber-600 to-amber-800"
-                        } opacity-80 group-hover:opacity-90 transition-all`}
-                    />
-                  )}
-
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
                   <div className="absolute inset-0 bg-black/25 group-hover:bg-black/60 transition-all duration-500" />
-
                   <div className="relative z-10 h-full flex flex-col items-center justify-center text-center p-6">
                     <h3 className="text-2xl font-bold text-white mb-2">
                       {item.title}
@@ -442,7 +435,6 @@ export default function AtelierMobilă() {
             </div>
           </div>
         </section>
-
 
         {/* TESTIMONIALE */}
         <section id="testimoniale" className="py-32 px-6">
@@ -460,13 +452,13 @@ export default function AtelierMobilă() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
+              {TESTIMONIALS.map((testimonial, index) => (
                 <div
                   key={index}
                   className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-500/50 hover:bg-white/10 transform hover:-translate-y-2 transition-all cursor-pointer"
                 >
                   <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
+                    {Array.from({ length: testimonial.rating }).map((_, i) => (
                       <Star
                         key={i}
                         size={20}
@@ -557,7 +549,10 @@ export default function AtelierMobilă() {
                 })}
               </div>
 
-              <div className="space-y-6 p-8 rounded-2xl bg-white/5 border border-white/10">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6 p-8 rounded-2xl bg-white/5 border border-white/10"
+              >
                 <div>
                   <label className="block text-white font-semibold mb-3">
                     Nume
@@ -615,12 +610,12 @@ export default function AtelierMobilă() {
                 </div>
 
                 <button
-                  onClick={handleSubmit}
+                  type="submit"
                   className="w-full px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-bold text-lg hover:scale-105 transition-all active:scale-95"
                 >
                   Trimite Mesaj
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </section>
