@@ -1,7 +1,7 @@
-
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,16 +24,10 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-touch-icon.png",
   },
-  // ❌ themeColor nu mai stă aici
 };
 
 export const viewport: Viewport = {
-  themeColor: "#111111", // ✅ mutat corect aici
-  // dacă vrei adaptiv:
-  // themeColor: [
-  //   { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-  //   { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  // ],
+  themeColor: "#111111",
 };
 
 export default function RootLayout({
@@ -43,8 +37,8 @@ export default function RootLayout({
     <html lang="ro">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
 }
-
