@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Atelier Mobilă",
+  title: "Atelier de Mobilă",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
