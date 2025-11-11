@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from 'react';
 import {
   Phone, Mail, MapPin, Menu, X, Star, MessageSquare, CheckCircle,
@@ -69,12 +67,12 @@ export default function AtelierMobilă() {
   };
 
   const portfolio = [
-    { id: 1, title: 'Bucătărie Modernă', desc: 'Design minimalist cu finisaje premium', icon: '🍳', color: 'from-orange-500 to-red-600' },
-    { id: 2, title: 'Living Room', desc: 'Soluții elegante pentru living', icon: '🛋️', color: 'from-blue-500 to-cyan-600' },
-    { id: 3, title: 'Dormitor Lux', desc: 'Confort și stil în dormitor', icon: '🛏️', color: 'from-purple-500 to-pink-600' },
-    { id: 4, title: 'Dressing Walk-in', desc: 'Organizare perfectă și eleganță', icon: '👗', color: 'from-rose-500 to-orange-600' },
-    { id: 5, title: 'Home Office', desc: 'Spațiu de lucru productiv', icon: '💻', color: 'from-green-500 to-teal-600' },
-    { id: 6, title: 'Baie Relax', desc: 'Soluții practice și moderne', icon: '🛁', color: 'from-indigo-500 to-blue-600' }
+    { id: 1, title: 'Bucătărie Modernă', desc: 'Design minimalist cu finisaje premium', icon: '🍳', color: 'from-amber-700 to-amber-900' },
+    { id: 2, title: 'Living Room', desc: 'Soluții elegante pentru living', icon: '🛋️', color: 'from-amber-600 to-amber-800' },
+    { id: 3, title: 'Dormitor Lux', desc: 'Confort și stil în dormitor', icon: '🛏️', color: 'from-amber-700 to-amber-900' },
+    { id: 4, title: 'Dressing Walk-in', desc: 'Organizare perfectă și eleganță', icon: '👗', color: 'from-amber-600 to-amber-800' },
+    { id: 5, title: 'Home Office', desc: 'Spațiu de lucru productiv', icon: '💻', color: 'from-amber-700 to-amber-900' },
+    { id: 6, title: 'Baie Relax', desc: 'Soluții practice și moderne', icon: '🛁', color: 'from-amber-600 to-amber-800' }
   ];
 
   const testimonials = [
@@ -90,12 +88,12 @@ export default function AtelierMobilă() {
   ];
 
   return (
-    <div className="w-full bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white min-h-screen">
+    <div className="w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-950 text-white min-h-screen">
       
       {/* Navigation */}
       <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-slate-900/80 backdrop-blur-xl shadow-xl border-b border-amber-500/20 py-3' 
+          ? 'bg-gray-900/80 backdrop-blur-xl shadow-lg border-b border-amber-600/30 py-3' 
           : 'bg-transparent py-6'
       }`}>
         <div className="max-w-7xl mx-auto px-6">
@@ -131,7 +129,7 @@ export default function AtelierMobilă() {
           </div>
 
           {isMenuOpen && (
-            <div className="md:hidden mt-4 py-4 border-t border-amber-500/20 space-y-3">
+            <div className="md:hidden mt-4 py-4 border-t border-amber-600/30 space-y-3">
               {['Acasá', 'Despre', 'Portofoliu', 'Testimoniale', 'Contact'].map((item) => (
                 <button
                   key={item}
@@ -148,9 +146,9 @@ export default function AtelierMobilă() {
 
       {/* HERO */}
       <section id="acasă" className="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-20 w-64 h-64 bg-amber-600 rounded-full mix-blend-screen filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-64 h-64 bg-blue-600 rounded-full mix-blend-screen filter blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-20 right-20 w-64 h-64 bg-amber-700 rounded-full mix-blend-screen filter blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
         </div>
 
         <div className="relative z-10 text-center max-w-4xl">
@@ -229,7 +227,7 @@ export default function AtelierMobilă() {
               </div>
             </div>
 
-            <div className="h-96 rounded-2xl overflow-hidden border border-amber-500/20 bg-gradient-to-br from-amber-500/10 to-blue-500/10 flex items-center justify-center">
+            <div className="h-96 rounded-2xl overflow-hidden border border-amber-600/20 bg-gradient-to-br from-amber-600/10 to-amber-700/10 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-8xl mb-4">🏗️</div>
                 <p className="text-gray-400">Imagine Showroom</p>
@@ -341,7 +339,7 @@ export default function AtelierMobilă() {
                   <a
                     key={i}
                     href={contact.href}
-                    className="group flex items-start gap-6 p-6 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/50 hover:bg-amber-500/5 transition-all"
+                    className="group flex items-start gap-6 p-6 rounded-xl bg-white/5 border border-white/10 hover:border-amber-600/50 hover:bg-amber-600/5 transition-all"
                   >
                     <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Icon size={24} className="text-white" />
