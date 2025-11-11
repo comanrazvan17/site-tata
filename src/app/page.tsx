@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import {
   Phone, Mail, MapPin, Menu, X, Star, MessageSquare, CheckCircle,
