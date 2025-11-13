@@ -158,7 +158,7 @@ export default function AtelierMobilă() {
   return (
     <div className="relative w-full text-white min-h-screen">
       {/* BACKGROUND */}
-      <div className="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-br from-gray-900 via-gray-800 to-gray-950">
+      <div className="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-950">
         <svg
           className="w-full h-full"
           viewBox="0 0 1200 1200"
