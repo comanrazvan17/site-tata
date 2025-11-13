@@ -207,7 +207,7 @@ export default function AtelierMobilă() {
         <nav
           className={`fixed w-full top-0 z-50 transition-all duration-300 ${
             scrolled
-              ? "bg-gray-900/80 backdrop-blur-xl py-3"
+              ? "bg-neutral-900/80 backdrop-blur-xl py-3"
               : "bg-transparent py-6"
           }`}
         >
@@ -239,7 +239,13 @@ export default function AtelierMobilă() {
                   <button
                     key={item}
                     onClick={() =>
-                      scrollToSection(item.toLowerCase().normalize("NFD").replace(/\u0303|\u0327|\u0306/g, "").replace("ă", "a"))
+                      scrollToSection(
+                        item
+                          .toLowerCase()
+                          .normalize("NFD")
+                          .replace(/\u0303|\u0327|\u0306/g, "")
+                          .replace("ă", "a")
+                      )
                     }
                     className="text-gray-300 hover:text-amber-500 font-semibold transition-colors pb-1 border-b-2 border-b-transparent hover:border-b-amber-500"
                   >
@@ -263,7 +269,13 @@ export default function AtelierMobilă() {
                   <button
                     key={item}
                     onClick={() =>
-                      scrollToSection(item.toLowerCase().normalize("NFD").replace(/\u0303|\u0327|\u0306/g, "").replace("ă", "a"))
+                      scrollToSection(
+                        item
+                          .toLowerCase()
+                          .normalize("NFD")
+                          .replace(/\u0303|\u0327|\u0306/g, "")
+                          .replace("ă", "a")
+                      )
                     }
                     className="block w-full text-left py-2 text-gray-300 hover:text-amber-400 font-medium"
                   >
