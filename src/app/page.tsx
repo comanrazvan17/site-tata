@@ -636,7 +636,7 @@ export default function AtelierMobilă() {
         <footer className="py-12 px-6 bg-gradient-to-t from-black to-transparent">
           <div className="max-w-7xl mx-auto text-center text-gray-400">
             <p className="mb-2">
-              © 2025 AtelierMobilă. Toate drepturile rezervate.
+              © 2026 AtelierMobilă. Toate drepturile rezervate.
             </p>
             <p>
               Realizat de{" "}
