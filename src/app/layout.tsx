@@ -14,7 +14,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Atelier de Mobilă",
+  title: {
+    default: "Atelier Mobilă | Mobilă la comandă Brașov",
+    template: "%s | Atelier Mobilă",
+  },
+  description:
+    "Mobilă la comandă în Brașov și împrejurimi: bucătării, dressinguri, dormitoare, living și baie. Proiectare 3D, măsurători și montaj profesional.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -22,9 +27,10 @@ export const metadata: Metadata = {
       { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
       { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
     ],
-    apple: "/apple-touch-icon.png",
+    apple: "/icon-192.png",
   },
 };
+
 
 export const viewport: Viewport = {
   themeColor: "#111111",
