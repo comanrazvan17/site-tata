@@ -4,7 +4,6 @@ import {
   X,
   Phone,
   Mail,
-  MapPin,
   Star,
   ArrowRight,
   CheckCircle2,
