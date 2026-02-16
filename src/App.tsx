@@ -226,12 +226,12 @@ function AboutSection() {
             </div>
 
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              12+ Ani de{' '}
+              13+ Ani de{' '}
               <span className="text-gradient">Experiență</span>
             </h2>
 
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Cu peste 12 ani de experiență, Atelierul de Mobilă din Brașov s-a consolidat ca lider 
+              Cu peste 13 ani de experiență, Atelierul de Mobilă din Brașov s-a consolidat ca lider 
               în producția de mobilă personalizată. Fiecare piesă este creată cu atenție la detalii 
               și pasiune pentru perfecțiune.
             </p>
