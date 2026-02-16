@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Menu, 
   X, 
@@ -59,8 +59,13 @@ function Navigation() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#acasa" className="flex items-center gap-2">
-            <Briefcase className="w-6 h-6 text-amber-500" />
+          <a href="#acasa" className="flex items-center gap-3">
+            <img
+              src="/logo.png"
+              alt="Atelier Mobilă"
+              className="h-9 w-9 md:h-10 md:w-10 object-contain"
+              loading="eager"
+            />
             <span className="text-xl font-bold">
               Atelier <span className="text-amber-500">Mobilă</span>
             </span>
@@ -612,6 +617,32 @@ function FAQSection() {
 
 // Contact Section with Google Maps
 function ContactSection() {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [status, setStatus] = useState<{ type: 'idle' | 'loading' | 'success' | 'error'; message: string }>({ type: 'idle', message: '' });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus({ type: 'loading', message: 'Se trimite mesajul…' });
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || 'Nu am putut trimite mesajul. Încearcă din nou.');
+      }
+
+      setStatus({ type: 'success', message: 'Mesaj trimis cu succes! Te contactăm în cel mai scurt timp.' });
+      setForm({ name: '', email: '', phone: '', message: '' });
+    } catch (err: any) {
+      setStatus({ type: 'error', message: err?.message || 'A apărut o eroare. Te rugăm să încerci din nou.' });
+    }
+  };
+
   const contactInfo = [
     { icon: Phone, label: 'Telefon', value: '+40 750 275 134', href: 'tel:+40750275134' },
     { icon: MessageCircle, label: 'WhatsApp', value: '+40 750 275 134', href: 'https://wa.me/40750275134' },
@@ -699,11 +730,14 @@ function ContactSection() {
           {/* Contact Form */}
           <div className="glass-effect rounded-2xl p-8 h-fit">
             <h3 className="text-xl font-semibold mb-6">Solicită Ofertă Gratuită</h3>
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div>
                 <Label htmlFor="name">Nume</Label>
                 <Input
                   id="name"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="Numele tău"
                   className="bg-white/5 border-white/10 mt-2"
                 />
@@ -713,6 +747,9 @@ function ContactSection() {
                 <Input
                   id="email"
                   type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="email@exemplu.ro"
                   className="bg-white/5 border-white/10 mt-2"
                 />
@@ -722,6 +759,8 @@ function ContactSection() {
                 <Input
                   id="phone"
                   type="tel"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   placeholder="+40 7XX XXX XXX"
                   className="bg-white/5 border-white/10 mt-2"
                 />
@@ -730,17 +769,38 @@ function ContactSection() {
                 <Label htmlFor="message">Mesaj</Label>
                 <Textarea
                   id="message"
+                  required
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
                   placeholder="Descrie-ne proiectul tău..."
                   rows={4}
                   className="bg-white/5 border-white/10 mt-2"
                 />
               </div>
+
+              {status.type !== 'idle' && (
+                <div
+                  className={`rounded-xl border px-4 py-3 text-sm ${
+                    status.type === 'success'
+                      ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200'
+                      : status.type === 'error'
+                        ? 'border-red-500/30 bg-red-500/10 text-red-200'
+                        : 'border-white/10 bg-white/5 text-gray-200'
+                  }`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {status.message}
+                </div>
+              )}
+
               <Button 
                 type="submit" 
-                className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold"
+                disabled={status.type === 'loading'}
+                className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4 mr-2" />
-                Trimite Mesaj
+                {status.type === 'loading' ? 'Se trimite...' : 'Trimite Mesaj'}
               </Button>
             </form>
           </div>
