@@ -914,7 +914,7 @@ function Footer() {
               href="https://envie-agency.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:underline"
+              className="hover:text-amber-500"
             >
               Envie Agency
             </a>
