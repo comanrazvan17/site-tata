@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Menu, 
-  X, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Star, 
-  ArrowRight, 
+import {
+  Menu,
+  X,
+  Phone,
+  Mail,
+  MapPin,
+  Star,
+  ArrowRight,
   CheckCircle2,
   Clock,
   Award,
@@ -49,12 +49,11 @@ function Navigation() {
   ];
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-black/90 backdrop-blur-lg border-b border-white/10' 
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'bg-black/90 backdrop-blur-lg border-b border-white/10'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -163,12 +162,12 @@ function HeroSection() {
           </h1>
 
           <p className="text-lg md:text-xl text-gray-400 mb-4 max-w-2xl mx-auto">
-            Bucătării, dressinguri, dormitoare, livinguri și mobilier de baie — 
+            Bucătării, dressinguri, dormitoare, livinguri și mobilier de baie —
             proiectare 3D, execuție premium și montaj profesional în Brașov și împrejurimi.
           </p>
 
           <p className="text-gray-500 mb-10 max-w-xl mx-auto">
-            Atelier Mobilă realizează mobilier personalizat pentru apartamente și case din județul Brașov: 
+            Atelier Mobilă realizează mobilier personalizat pentru apartamente și case din județul Brașov:
             măsurători la fața locului, randări 3D, execuție și montaj.
           </p>
 
@@ -231,14 +230,14 @@ function AboutSection() {
             </h2>
 
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Cu peste 13 ani de experiență, Atelierul de Mobilă din Brașov s-a consolidat ca lider 
-              în producția de mobilă personalizată. Fiecare piesă este creată cu atenție la detalii 
+              Cu peste 13 ani de experiență, Atelierul de Mobilă din Brașov s-a consolidat ca lider
+              în producția de mobilă personalizată. Fiecare piesă este creată cu atenție la detalii
               și pasiune pentru perfecțiune.
             </p>
 
             <p className="text-gray-400 mb-8 leading-relaxed">
-              Folosim doar materiale premium și tehnologie de vârf pentru a crea mobilier care durează 
-              o viață. Specializarea noastră este <strong>mobila la comandă în Brașov</strong>, 
+              Folosim doar materiale premium și tehnologie de vârf pentru a crea mobilier care durează
+              o viață. Specializarea noastră este <strong>mobila la comandă în Brașov</strong>,
               oferind soluții personalizate pentru fiecare client.
             </p>
 
@@ -260,7 +259,7 @@ function AboutSection() {
               alt="Atelier Mobilă Brașov - Mobilă la Comandă"
               className="relative rounded-2xl w-full h-[500px] object-cover"
             />
-            
+
             {/* Floating Card */}
             <div className="absolute bottom-6 right-6 glass-effect rounded-xl p-4 max-w-[200px]">
               <div className="flex items-center gap-3">
@@ -335,7 +334,7 @@ function ServicesSection() {
             Realizăm
           </h2>
           <p className="text-gray-400">
-            Oferim o gamă completă de servicii de mobilă la comandă în Brașov, 
+            Oferim o gamă completă de servicii de mobilă la comandă în Brașov,
             de la proiectare până la montaj.
           </p>
         </div>
@@ -343,8 +342,8 @@ function ServicesSection() {
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="group glass-effect rounded-2xl overflow-hidden hover-lift"
             >
               <div className="relative h-48 overflow-hidden">
@@ -366,8 +365,8 @@ function ServicesSection() {
                   {service.description}
                 </p>
                 <meta name="keywords" content={service.keywords} />
-                <a 
-                  href="#contact" 
+                <a
+                  href="#contact"
                   className="inline-flex items-center text-amber-500 text-sm font-medium hover:underline"
                 >
                   Solicită Ofertă
@@ -443,8 +442,8 @@ function PortfolioSection() {
         {/* Portfolio Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer"
             >
               <img
@@ -595,8 +594,8 @@ function FAQSection() {
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
+              <AccordionItem
+                key={index}
                 value={`item-${index}`}
                 className="glass-effect rounded-xl border-none overflow-hidden"
               >
@@ -663,7 +662,7 @@ function ContactSection() {
             <span className="text-gradient">Vorbim</span>
           </h2>
           <p className="text-gray-400">
-            Contactează-ne pentru o ofertă gratuită de mobilă la comandă în Brașov. 
+            Contactează-ne pentru o ofertă gratuită de mobilă la comandă în Brașov.
             Suntem aici să transformăm viziunea ta în realitate.
           </p>
         </div>
@@ -780,13 +779,12 @@ function ContactSection() {
 
               {status.type !== 'idle' && (
                 <div
-                  className={`rounded-xl border px-4 py-3 text-sm ${
-                    status.type === 'success'
+                  className={`rounded-xl border px-4 py-3 text-sm ${status.type === 'success'
                       ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200'
                       : status.type === 'error'
                         ? 'border-red-500/30 bg-red-500/10 text-red-200'
                         : 'border-white/10 bg-white/5 text-gray-200'
-                  }`}
+                    }`}
                   role="status"
                   aria-live="polite"
                 >
@@ -794,8 +792,8 @@ function ContactSection() {
                 </div>
               )}
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={status.type === 'loading'}
                 className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
               >
@@ -846,7 +844,7 @@ function Footer() {
               </span>
             </a>
             <p className="text-gray-400 text-sm mb-6">
-              Mobilă la comandă în Brașov de cea mai înaltă calitate. 
+              Mobilă la comandă în Brașov de cea mai înaltă calitate.
               Bucătării, dormitoare, dressinguri și multe altele.
             </p>
             <div className="flex gap-4">
@@ -910,8 +908,16 @@ function Footer() {
           <p className="text-gray-500 text-sm">
             © 2026 AtelierMobilă. Toate drepturile rezervate.
           </p>
-          <p className="text-gray-500 text-sm">
-            Mobilă la Comandă Brașov | Atelier Mobilă
+          <p className="text-gray-500 text-sm text-center">
+            Mobilă la Comandă Brașov | Atelier Mobilă | Realizat de{" "}
+            <a
+              href="https://envie-agency.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:underline"
+            >
+              Envie Agency
+            </a>
           </p>
         </div>
       </div>
