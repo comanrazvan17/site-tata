@@ -645,8 +645,7 @@ function ContactSection() {
   const contactInfo = [
     { icon: Phone, label: 'Telefon', value: '+40 750 275 134', href: 'tel:+40750275134' },
     { icon: MessageCircle, label: 'WhatsApp', value: '+40 750 275 134', href: 'https://wa.me/40750275134' },
-    { icon: Mail, label: 'Email', value: 'contact@atelier-mobila.com', href: 'mailto:contact@atelier-mobila.com' },
-    { icon: MapPin, label: 'Adresă', value: 'Bd. Ștefan cel Mare și Sfânt 13, Sc. A', href: '#' },
+    { icon: Mail, label: 'Email', value: 'contact@atelier-mobila.com', href: 'mailto:contact@mobila-pe-comanda.ro' },
   ];
 
   return (
