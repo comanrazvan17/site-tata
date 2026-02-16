@@ -805,7 +805,6 @@ function Footer() {
     contact: [
       { label: '+40 750 275 134', href: 'tel:+40750275134' },
       { label: 'contact@mobila-pe-comanda.ro', href: 'mailto:contact@mobila-pe-comanda.ro' },
-      { label: 'Bd. Ștefan cel Mare și Sfânt 13, Sc. A', href: '#' },
     ],
   };
 
@@ -892,7 +891,7 @@ function Footer() {
               href="https://envie-agency.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-amber-500"
+              className="text-amber-500"
             >
               Envie Agency
             </a>
