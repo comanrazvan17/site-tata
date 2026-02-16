@@ -645,7 +645,7 @@ function ContactSection() {
   const contactInfo = [
     { icon: Phone, label: 'Telefon', value: '+40 750 275 134', href: 'tel:+40750275134' },
     { icon: MessageCircle, label: 'WhatsApp', value: '+40 750 275 134', href: 'https://wa.me/40750275134' },
-    { icon: Mail, label: 'Email', value: 'contact@atelier-mobila.com', href: 'mailto:contact@mobila-pe-comanda.ro' },
+    { icon: Mail, label: 'Email', value: 'contact@mobila-pe-comanda.ro', href: 'mailto:contact@mobila-pe-comanda.ro' },
   ];
 
   return (
@@ -805,7 +805,7 @@ function Footer() {
     ],
     contact: [
       { label: '+40 750 275 134', href: 'tel:+40750275134' },
-      { label: 'contact@atelier-mobila.com', href: 'mailto:contact@atelier-mobila.com' },
+      { label: 'contact@mobila-pe-comanda.ro', href: 'mailto:contact@mobila-pe-comanda.ro' },
       { label: 'Bd. Ștefan cel Mare și Sfânt 13, Sc. A', href: '#' },
     ],
   };
@@ -833,7 +833,7 @@ function Footer() {
               <a href="tel:+40750275134" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
                 <Phone className="w-5 h-5" />
               </a>
-              <a href="mailto:contact@atelier-mobila.com" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
+              <a href="mailto:contact@mobila-pe-comanda.ro" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
