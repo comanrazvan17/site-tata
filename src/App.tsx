@@ -704,26 +704,6 @@ function ContactSection() {
                 </div>
               </div>
             </div>
-
-            {/* Google Maps */}
-            <div className="glass-effect rounded-xl p-4 overflow-hidden">
-              <h3 className="text-lg font-semibold mb-4">Ne Găsești Aici</h3>
-              <div className="rounded-lg overflow-hidden" style={{ height: '300px' }}>
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2789.1234567890123!2d25.6012!3d45.6579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b35b1234567890%3A0xabcdef1234567890!2sBulevardul%20%C8%98tefan%20cel%20Mare%20%C8%99i%20Sf%C3%A2nt%2013%2C%20Bra%C8%99ov!5e0!3m2!1sro!2sro!4v1234567890123!5m2!1sro!2sro"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Atelier Mobilă Brașov - Locație"
-                />
-              </div>
-              <p className="text-sm text-gray-400 mt-3 text-center">
-                Bulevardul Ștefan cel Mare și Sfânt 13, Scara A, Brașov
-              </p>
-            </div>
           </div>
 
           {/* Contact Form */}
