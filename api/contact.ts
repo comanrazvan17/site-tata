@@ -29,7 +29,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const to = process.env.CONTACT_TO;
-    const from = process.env.CONTACT_FROM || 'Formular <no-reply@atelier-mobila.ro>';
+    const from = process.env.CONTACT_FROM || 'Formular <no-reply@mobila-pe-comanda.ro>';
 
     if (!process.env.RESEND_API_KEY) {
       return res.status(500).json({ error: 'Lipsește RESEND_API_KEY în variabilele de mediu.' });
