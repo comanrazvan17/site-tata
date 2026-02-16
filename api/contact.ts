@@ -1,53 +1,67 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function escapeHtml(input: string) {
+  return String(input)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // GET -> nu mai crapă, răspunde corect
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { name, email, phone, message } = req.body || {};
+    const rawBody = req.body;
+    const body = typeof rawBody === "string" ? JSON.parse(rawBody) : (rawBody || {});
+    const { name, email, phone, message } = body as {
+      name?: string;
+      email?: string;
+      phone?: string;
+      message?: string;
+    };
 
     if (!name || !email || !message) {
       return res.status(400).json({ error: "Completează numele, emailul și mesajul." });
     }
-
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: "Email invalid." });
     }
 
-    if (!process.env.RESEND_API_KEY) {
-      console.error("Lipsește RESEND_API_KEY");
-      return res.status(500).json({ error: "Server email not configured." });
-    }
-
-    if (!process.env.CONTACT_TO) {
-      console.error("Lipsește CONTACT_TO");
-      return res.status(500).json({ error: "Destinația email nu este setată." });
-    }
-
+    const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.CONTACT_TO;
     const from =
       process.env.CONTACT_FROM ||
       "Atelier Mobilă <contact@send.mobila-pe-comanda.ro>";
 
-    const subject = `Mesaj nou de pe site – ${name}`;
+    if (!apiKey) {
+      return res.status(500).json({ error: "Lipsește RESEND_API_KEY în Vercel." });
+    }
+    if (!to) {
+      return res.status(500).json({ error: "Lipsește CONTACT_TO în Vercel." });
+    }
 
-    const text = `
-Nume: ${name}
-Email: ${email}
-Telefon: ${phone || "-"}
-Mesaj:
-${message}
-`;
+    const resend = new Resend(apiKey);
+
+    const subject = `Mesaj nou de pe site – ${name}`;
+    const text = [
+      `Nume: ${name}`,
+      `Email: ${email}`,
+      `Telefon: ${phone || "-"}`,
+      "",
+      "Mesaj:",
+      message,
+    ].join("\n");
 
     const html = `
 <div style="font-family:Arial,Helvetica,sans-serif;line-height:1.6">
@@ -57,10 +71,9 @@ ${message}
   <p><b>Telefon:</b> ${escapeHtml(phone || "-")}</p>
   <hr/>
   <p style="white-space:pre-wrap">${escapeHtml(message)}</p>
-</div>
-`;
+</div>`;
 
-    const response = await resend.emails.send({
+    const resp = await resend.emails.send({
       from,
       to: [to],
       replyTo: email,
@@ -69,23 +82,12 @@ ${message}
       html,
     });
 
-    if (response.error) {
-      console.error("RESEND ERROR:", response.error);
-      return res.status(500).json({ error: "Trimiterea emailului a eșuat." });
+    if (resp.error) {
+      return res.status(500).json({ error: resp.error.message || "Eroare Resend." });
     }
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ ok: true });
   } catch (err: any) {
-    console.error("SERVER ERROR:", err);
-    return res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: err?.message || "Server error" });
   }
-}
-
-function escapeHtml(input: string) {
-  return input
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }
