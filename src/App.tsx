@@ -568,7 +568,7 @@ function FAQSection() {
     },
     {
       question: 'Cum pot solicita o ofertă pentru mobila la comandă?',
-      answer: 'Puteți solicita o ofertă gratuită completând formularul de contact de pe site, sunând la numărul de telefon +40 750 275 134, sau prin WhatsApp. Vom programa o vizită pentru măsurători și consultanță, după care veți primi o ofertă detaliată cu proiectul 3D.'
+      answer: 'Puteți solicita o ofertă gratuită completând formularul de contact de pe site, sunând la numărul de telefon +40 720 771 338, sau prin WhatsApp. Vom programa o vizită pentru măsurători și consultanță, după care veți primi o ofertă detaliată cu proiectul 3D.'
     },
   ];
 
@@ -642,8 +642,8 @@ function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: Phone, label: 'Telefon', value: '+40 750 275 134', href: 'tel:+40720771338' },
-    { icon: MessageCircle, label: 'WhatsApp', value: '+40 750 275 134', href: 'https://wa.me/40720771338' },
+    { icon: Phone, label: 'Telefon', value: '+40 720 771 338', href: 'tel:+40720771338' },
+    { icon: MessageCircle, label: 'WhatsApp', value: '+40 720 771 338', href: 'https://wa.me/40720771338' },
     { icon: Mail, label: 'Email', value: 'contact@mobila-pe-comanda.ro', href: 'mailto:contact@mobila-pe-comanda.ro' },
   ];
 
@@ -803,7 +803,7 @@ function Footer() {
       { label: 'Contact', href: '#contact' },
     ],
     contact: [
-      { label: '+40 750 275 134', href: 'tel:+40720771338' },
+      { label: '+40 720 771 338', href: 'tel:+40720771338' },
       { label: 'contact@mobila-pe-comanda.ro', href: 'mailto:contact@mobila-pe-comanda.ro' },
     ],
   };
