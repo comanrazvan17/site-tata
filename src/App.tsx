@@ -84,7 +84,7 @@ function Navigation() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <a href="tel:+40750275134">
+            <a href="tel:+420720771338">
               <Button className="bg-amber-500 hover:bg-amber-600 text-black font-semibold">
                 <Phone className="w-4 h-4 mr-2" />
                 Sună Acum
@@ -119,7 +119,7 @@ function Navigation() {
                   {link.label}
                 </a>
               ))}
-              <a href="tel:+40750275134">
+              <a href="tel:+40720771338">
                 <Button className="w-full bg-amber-500 hover:bg-amber-600 text-black font-semibold mt-4">
                   <Phone className="w-4 h-4 mr-2" />
                   Sună Acum
@@ -642,8 +642,8 @@ function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: Phone, label: 'Telefon', value: '+40 750 275 134', href: 'tel:+40750275134' },
-    { icon: MessageCircle, label: 'WhatsApp', value: '+40 750 275 134', href: 'https://wa.me/40750275134' },
+    { icon: Phone, label: 'Telefon', value: '+40 750 275 134', href: 'tel:+40720771338' },
+    { icon: MessageCircle, label: 'WhatsApp', value: '+40 750 275 134', href: 'https://wa.me/40720771338' },
     { icon: Mail, label: 'Email', value: 'contact@mobila-pe-comanda.ro', href: 'mailto:contact@mobila-pe-comanda.ro' },
   ];
 
@@ -803,7 +803,7 @@ function Footer() {
       { label: 'Contact', href: '#contact' },
     ],
     contact: [
-      { label: '+40 750 275 134', href: 'tel:+40750275134' },
+      { label: '+40 750 275 134', href: 'tel:+40720771338' },
       { label: 'contact@mobila-pe-comanda.ro', href: 'mailto:contact@mobila-pe-comanda.ro' },
     ],
   };
@@ -825,10 +825,10 @@ function Footer() {
               Bucătării, dormitoare, dressinguri și multe altele.
             </p>
             <div className="flex gap-4">
-              <a href="https://wa.me/40750275134" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
+              <a href="https://wa.me/40720771338" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
                 <MessageCircle className="w-5 h-5" />
               </a>
-              <a href="tel:+40750275134" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
+              <a href="tel:+40720771338" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
                 <Phone className="w-5 h-5" />
               </a>
               <a href="mailto:contact@mobila-pe-comanda.ro" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-black transition-colors">
